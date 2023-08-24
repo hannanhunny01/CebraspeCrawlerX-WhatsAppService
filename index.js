@@ -5,7 +5,7 @@ const dotenv = require('dotenv').config();
 const PORT = process.env.PORT || 4000;
 const app = express();
 const message = require('./controller/message')
-
+const {sendMessagePas} = require('./controller/sendMessagePas')
 
 // Use body-parser middleware to parse JSON request bodies
 app.use(bodyParser.json());
@@ -21,8 +21,10 @@ app.get('/sendHello',(req,res) =>{
    }
 })
 
+app.post('/sendMessagePas',sendMessagePas)
+
 app.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`);
 });
 
-app.get('/message',message )
+
