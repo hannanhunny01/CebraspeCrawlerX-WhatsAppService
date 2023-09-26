@@ -1,35 +1,43 @@
 const TelegramBot = require('node-telegram-bot-api');
-
 const token = '6517517605:AAHMSAwLd5AIPK71AZ-ZLtrlwvpUXaplVLU';
 
+const TelegramSaver = require('../../Model/telegramModel')
+const {generateRandomMixTwelve} = require('./sendCode')
 
-const {generateRandomMixTwelve} = require('./codeGenerators')
+const makeCode =  async (chatId)=>{
+  try{
+    const checkCode = await TelegramSaver.findOne({chatId:chatId})
+    if (checkCode) {
+      const minutesLeft = Math.ceil((600000 - (new Date() - checkCode.createdAt)) / 60000);
+    
+      return `Esse Codigo \n<b>${checkCode.verificationCode}</b>\nEsta Valido por ${minutesLeft} minuto(s)`;
+    } else {
+      const newCode = await TelegramSaver.create({ chatId: chatId, verificationCode: generateRandomMixTwelve() });
+      await newCode.save();
+      return `Esse Codigo \n<b>${newCode.verificationCode}</b>\nEsta Valido por 10 minutos `;
+    }
+  }catch(error){
 
+    console.log(error)
+  }
+}
 
 
 const bot = new TelegramBot(token, {polling: true});
-console.log('hello')
 
-// Matches "/echo [whatever]"
-bot.onText(/\/echo (.+)/, (msg, match) => {
-  // 'msg' is the received Message from Telegram
-  // 'match' is the result of executing the regexp above on the text content
-  // of the message
+bot.onText(/\/start/,(msg)=>{
+  bot.sendMessage(msg.chat.id, "Bem Vindo manda /register para Receber Novo codigo de Cadastro")
+})
+bot.onText(/\/register/, async (msg)=>{
+   bot.sendMessage(msg.chat.id ,await makeCode(String(msg.chat.id)),{parse_mode : "HTML"} )
 
+})
+bot.onText(/(.+)/, (msg) => {
   const chatId = msg.chat.id;
-  const resp = match[1]; // the captured "whatever"
-
-  // send back the matched "whatever" to the chat
-  bot.sendMessage(chatId, generateRandomMixTwelve());
-});
-
-// Listen for any kind of message. There are different kinds of
-// messages.
-bot.on('message', (msg) => {
-  const chatId = msg.chat.id;
-
-  // send a message to the chat acknowledging receipt of their message
   bot.sendMessage(chatId, "Send /register to get Code");
 });
+
+
+
 
 module.exports = bot
