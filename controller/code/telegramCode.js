@@ -26,16 +26,16 @@ const makeCode =  async (chatId)=>{
 const bot = new TelegramBot(token, {polling: true});
 
 bot.onText(/\/start/,(msg)=>{
-  bot.sendMessage(msg.chat.id, "Bem Vindo manda /register para Receber Novo codigo de Cadastro")
+  bot.sendMessage(msg.chat.id, "Bem Vindo manda /novoToken para Receber Novo codigo de Cadastro")
 })
-bot.onText(/\/register/, async (msg)=>{
+bot.onText(/\/novoToken/, async (msg)=>{
    bot.sendMessage(msg.chat.id ,await makeCode(String(msg.chat.id)),{parse_mode : "HTML"} )
 
 })
-bot.onText(/(.+)/, (msg) => {
-  const chatId = msg.chat.id;
-  bot.sendMessage(chatId, "Send /register to get Code");
-});
+//bot.onText(/(.+)/, (msg) => {
+ // const chatId = msg.chat.id;
+//  bot.sendMessage(chatId, "Send /register to get Code");
+//});
 
 
 
