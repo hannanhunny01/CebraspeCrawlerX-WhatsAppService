@@ -1,3 +1,5 @@
+// this file contains the code functions for sending the code to the user that are used by email and telegram
+
 const { sendCodeEmail } = require("./emailCode");
 
 
