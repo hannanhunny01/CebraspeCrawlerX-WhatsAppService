@@ -1,5 +1,5 @@
 const {sendTelegram} = require("./telegramMessage")
-
+const {sendEmail} = require('./sendEmail')
 const sendMessage = async (req, res) => {
 
     try{
@@ -26,6 +26,10 @@ const sendMessage = async (req, res) => {
                 }
             }
 
+            console.log(email)
+            console.log(whatsapp)
+            console.log(telegram)
+
             await sendTelegram(textToSend,telegram)
             await sendEmail(textToSend,email)
             await sendWhatsapp(textToSend,whatsapp)
@@ -34,7 +38,7 @@ const sendMessage = async (req, res) => {
 
       
 
-
+ 
         } 
 
         
