@@ -1,28 +1,30 @@
-const {sendTelegram} = require("./telegramMessage")
+const {sendTelegram} = require("./sendtelegram")
 const {sendEmail} = require('./sendEmail')
 const sendMessage = async (req, res) => {
 
     try{
+       console.log(req.body.item)
 
-        for(const items of req.item){
+       
+        for(const items of req.body.item){
            
             const title = items.title
-            const textToSend = ""
+            let textToSend = ""
             for (const update of items.updates){
                 textToSend = textToSend + " \n"+ update.date  +" \n"+ update.name +" \n"
             }
             const email  =   [];
             const whatsapp = [];
             const telegram = [];
-            for (const item of req.people){
-                if(item.email){
-                    email.push({name: item.name, email: item.email});                
+            for (const itm of items.people){
+                if(itm.email){
+                    email.push({name: itm.name, email: itm.email});                
                 }
-                if(item.whatsapp){
-                    whatsapp.push({name: item.name, whatsapp: item.whatsapp});                
+                if(itm.whatsapp){
+                    whatsapp.push({name: itm.name, whatsapp: itm.whatsapp});                
                 }
-                if(item.telegram){
-                    telegram.push({name: item.name, telegram: item.telegram});                
+                if(itm.telegram){
+                    telegram.push({name: itm.name, telegram: itm.telegram});                
                 }
             }
 
@@ -30,9 +32,7 @@ const sendMessage = async (req, res) => {
             console.log(whatsapp)
             console.log(telegram)
 
-            await sendTelegram(textToSend,telegram)
-            await sendEmail(textToSend,email)
-            await sendWhatsapp(textToSend,whatsapp)
+         //  return res.json({email:email,whatsapp:whatsapp,telegram:telegram})
 
 
 

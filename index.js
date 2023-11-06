@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const dotenv = require('dotenv').config();
 const {dbConnect} = require('./config/dbConnect')
 const PORT = process.env.PORT || 4000;
+const messageRoute = require('./routes/messageRoute')
 
 const app = express();
 app.use(bodyParser.json());
@@ -12,7 +13,7 @@ dbConnect();
 
 const codeRoute = require('./routes/codeRoute')
 app.use('/api/code',codeRoute)
-
+app.use('/api/message',messageRoute)
 const message = require('./controller/message')
 const {sendMessagePas} = require('./controller/sendMessagePas')
 
