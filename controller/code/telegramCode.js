@@ -28,6 +28,7 @@ const bot = new TelegramBot(token, {polling: true});
 bot.onText(/\/start/,(msg)=>{
   bot.sendMessage(msg.chat.id, "Bem Vindo manda /novoToken para Receber Novo codigo de Cadastro")
 })
+
 bot.on("polling_error", (msg) => console.log(msg));
 
 bot.onText(/\/novoToken/, async (msg)=>{
