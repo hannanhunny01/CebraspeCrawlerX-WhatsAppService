@@ -6,7 +6,7 @@ const initializeSession = () => {
     venom
       .create({
         session: 'session-name',
-        headless: false
+        headless: true
       })
       .then((client) => {
         whatsappClient = client;

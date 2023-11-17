@@ -1,14 +1,17 @@
 const {sendTelegram} = require("./sendtelegram")
 const {sendEmail} = require('./sendEmail')
+
+const {sendZapUpdates} = require('./sendWhatsapp')
+
 const sendMessage = async (req, res) => {
 
     try{
-       console.log(req.body.item)
+    //   console.log(req.body.item)
 
-       
+  //  return res.json(req.body.item)
         for(const items of req.body.item){
            
-            const title = items.title
+            const title = items.nameOfObject
             let textToSend = ""
             for (const update of items.updates){
                 textToSend = textToSend + " \n"+ update.date  +" \n"+ update.name +" \n"
@@ -27,14 +30,16 @@ const sendMessage = async (req, res) => {
                     telegram.push({name: itm.name, telegram: itm.telegram});                
                 }
             }
+            console.log(title,textToSend,whatsapp)
+            await sendZapUpdates(title,textToSend,whatsapp)
 
-            console.log(email)
-            console.log(whatsapp)
-            console.log(telegram)
+    //        console.log(email)
+     //       console.log(whatsapp)
+     //       console.log(telegram)
 
          //  return res.json({email:email,whatsapp:whatsapp,telegram:telegram})
 
-
+        
 
       
 

@@ -3,7 +3,7 @@
 
 const { getWhatsappClient } = require('../zapSession/session');
 
-
+const {generateRandomSixDigitNumber} = require('./sendCode')
 
 const sendMessageZap = async (req, res) => {
     const whatsappClient = await getWhatsappClient();
@@ -17,10 +17,10 @@ const sendMessageZap = async (req, res) => {
 
   // Send a message using the initialized WhatsApp client
   whatsappClient
-    .sendText('5561994281856@c.us', req.body.message)
+    .sendText(`55${req.body.number}@c.us`, "Ola , \nSeu codigo de Verficao e : \n" + "*"+generateRandomSixDigitNumber() +"*"+ "\nValido por 10 minutos")
     .then((result) => {
       console.log('Result: ', result);
-      return res.json(whatsappClient);
+      return res.status(200).json({message:"Message Sent Successfully"});
     })
     .catch((error) => {
       console.error('Error when sending message:', error);
