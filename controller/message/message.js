@@ -6,9 +6,9 @@ const {sendZapUpdates} = require('./sendWhatsapp')
 const sendMessage = async (req, res) => {
 
     try{
-    //   console.log(req.body.item)
 
-  //  return res.json(req.body.item)
+        return res.json(req.body)
+
         for(const items of req.body.item){
            
             const title = items.nameOfObject
@@ -30,14 +30,12 @@ const sendMessage = async (req, res) => {
                     telegram.push({name: itm.name, telegram: itm.telegram});                
                 }
             }
-            console.log(title,textToSend,whatsapp)
-            await sendZapUpdates(title,textToSend,whatsapp)
+       //     console.log(title,textToSend,telegram)
+        //    await sendZapUpdates(title,textToSend,whatsapp)
+            await sendTelegram(title ,textToSend,telegram)
+      //      await sendEmail(title,textToSend,email)
 
-    //        console.log(email)
-     //       console.log(whatsapp)
-     //       console.log(telegram)
 
-         //  return res.json({email:email,whatsapp:whatsapp,telegram:telegram})
 
         
 
@@ -45,6 +43,8 @@ const sendMessage = async (req, res) => {
 
  
         } 
+        return res.status(200).json({message:"Message Sent Successfully to all the users"})
+
 
         
     }catch(error){console.log(error)}

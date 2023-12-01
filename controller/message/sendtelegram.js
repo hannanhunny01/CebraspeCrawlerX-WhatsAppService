@@ -1,23 +1,25 @@
 
-const telegram = require('node-telegram-bot-api');
+const telegramBot = require('node-telegram-bot-api');
 
+const bot = require('../code/telegramCode')
 
-const sendtelegram = async (data ,items) => {
+const sendTelegram = async (title ,textToSend,telegram) => {
 
     try{
         
-        const token = process.env.TELEGRAM_TOKEN
-      const messageBot  =  new telegram(token, {polling: true});
+    //    const token = process.env.TELEGRAM_TOKEN
+    //  const messageBot  =  new telegramBot(token, {polling: true});
 
-      for (const item of items){
-        messageBot.sendMessage(item.telegram, "Senho "+item.name+" Teve Seguinte Atualizacoes :-" + data)
+      for (const item of telegram){
+        console.log(item.name,item.telegram)
+        bot.sendMessage(item.telegram, `Ola senhor(a) ${item.name} \n Teve Seguinte Atualizacoes para ${title} \n  ${textToSend}`)
     }
 
-    messageBot.stopPolling();
+   // messageBot.stopPolling();
 
 
     }catch(error){console.log(error)}
 
 }
 
-module.exports = { sendtelegram }
+module.exports = { sendTelegram }

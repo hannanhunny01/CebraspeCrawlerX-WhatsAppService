@@ -13,13 +13,16 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.20.2",
+    "cypress": "^13.6.0",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "express-router": "^0.0.1",
     "mongodb": "^6.1.0",
     "mongoose": "^7.5.3",
-    "node-telegram-bot-api": "^0.63.0",
+    "node-telegram-bot-api": "^0.64.0",
     "nodemailer": "^6.9.5",
+    "nodemailer-mailgun-transport": "^2.1.5",
+    "request-promise-core": "^1.1.4",
     "venom-bot": "^5.0.21"
   }
 }

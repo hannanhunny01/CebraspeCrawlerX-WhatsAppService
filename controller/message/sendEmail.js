@@ -3,22 +3,23 @@
 
 const nodemailer = require('nodemailer')
 
-const sendEmail = async (emails,msg,name)  =>{
+const sendEmail = async ()  =>{
     try{
     const transporter = nodemailer.createTransport({
-        host:process.env.EMAIL_HOSTNAME,
-        port:process.env.EMAIL_PORT,
+        host:process.env.MAILGUN_HOSTNAME,
+        port:process.env.MAILGUN_PORT,
         auth:{
-            user: process.env.EMAIL_USERNAME,
-            pass: process.env.EMAIL_PASSWORD
+            user: process.env.MAILGUN_USERNAME,
+            pass: process.env.MAILGUN_PASSWORD
         }
 
     })
     const mailOptions = {
         from:'HANNAN <hannan@hannan.com>',
-        to: emails.join(', '),
-        subject: `Sistema verificou atualização no ${name}`,
-        text:`Teve Segatualizaçoes :- \n ${msg}`,
+      //  to: emails.join(', '),
+         to:"hannanhoney5000@gmail.com",
+        subject: `Sistema verificou atualização no `,
+        text:`Teve Segatualizaçoes :- \n `,
         
     }
 
@@ -26,4 +27,7 @@ const sendEmail = async (emails,msg,name)  =>{
 
 }catch(error){console.log(error)}
 }
+
+console.log("hello")
+//sendEmail()
 module.exports ={sendEmail}
