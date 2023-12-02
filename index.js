@@ -23,10 +23,12 @@ const {sendMessagePas} = require('./controller/sendMessagePas')
 // Define a simple "hello" route
 
 const bot = require('./controller/code/telegramCode')
-
+const statusBot = require('./controller/apisStatus/apiStatus')
 
 
 app.post('/sendMessagePas',sendMessagePas)
+
+
 
 app.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`);

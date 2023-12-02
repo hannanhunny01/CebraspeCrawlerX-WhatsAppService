@@ -1,21 +1,67 @@
-const TelegramBot = require('node-telegram-bot-api');
 
 
-const sendStatus = async (token ,chatid,msg) => {
-    try {
-        const bot = new TelegramBot(token, { polling: true });
-       bot.sendMessage(chatid,msg)
-    } catch (error) {
-        console.log(error);
+const {sendCheckMsg} = require('./checkZap')
+const {closeSession} = require('../zapSession/session')
+const telegram = require('node-telegram-bot-api');
+
+
+  
+    const token = process.env.TELEGRAM_TOKEN_APISTATUS;
+    const statusBot  =  new telegram(token, {polling: true});
+
+
+    statusBot.onText(/.*/,(msg)=>{
+        if(msg.chat.id ==  process.env.TELEGRAM_CHAT_ID_APISTATUS){
+        statusBot.sendMessage(msg.chat.id, 'All possible Commands \n /start \n /checkZap \n /checkTelegram \n /StopZap \n /QrCode')
+        }
+    })
+    
+    statusBot.onText(/\/start/,(msg)=>{
+        if(msg.chat.id ==  process.env.TELEGRAM_CHAT_ID_APISTATUS){
+        statusBot.sendMessage(msg.chat.id,`${msg.chat.id}`)
+        }
+    })
+
+    statusBot.onText(/\/checkZap/,async (msg)=>{
+        if(msg.chat.id ==  process.env.TELEGRAM_CHAT_ID_APISTATUS){
+      const result =    await sendCheckMsg()
+            if(result){
+                statusBot.sendMessage(msg.chat.id, 'Zap is Working')
+           }else{
+            statusBot.sendMessage(msg.chat.id, 'Zap is not Working')
+           }
+        }
     }
+        
+           )
+        
+    statusBot.onText(/\/checkTelegram/,(msg)=>{
+        if(msg.chat.id ==  process.env.TELEGRAM_CHAT_ID_APISTATUS){
+            statusBot.sendMessage(msg.chat.id, 'Telegram is Working')
+        }
+    })
 
-}
+    statusBot.onText(/\/StopZap/ , (msg)=>{
+        try{
+        if(msg.chat.id ==  process.env.TELEGRAM_CHAT_ID_APISTATUS){
+            closeSession();
+            statusBot.sendMessage(msg.chat.id, 'Zap is Stopped')
+        }
+    }catch(error){ console.log(error)}
+    })
 
-msg ={ 
-    "chatId": 5030042717,
-    "message": "teste"
-}
+    statusBot.onText(/\/QrCode/ , (msg)=>{
+        if(msg.chat.id ==  process.env.TELEGRAM_CHAT_ID_APISTATUS){
 
-sendStatus('6395001603:AAEMhzQ9yiTzIQIuAQnQv5pNF9xFUtbnvCc',5030042717,msg.chatId   );
-sendStatus('6517517605:AAHMSAwLd5AIPK71AZ-ZLtrlwvpUXaplVLU',5030042717,"teste");
-sendStatus('6674440083:AAFtRTgZ0ZaXFfSF0MQAGYf6oA9aJFsox24',5030042717,"new bot");
+            statusBot.sendMessage(msg.chat.id, 'Zap is Started')
+        }
+    })
+
+   
+    
+
+
+
+
+
+module.exports = statusBot
