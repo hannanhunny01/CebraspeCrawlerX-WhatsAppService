@@ -17,12 +17,15 @@
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "express-router": "^0.0.1",
+    "install": "^0.13.0",
     "mongodb": "^6.1.0",
     "mongoose": "^7.5.3",
     "node-telegram-bot-api": "^0.64.0",
     "nodemailer": "^6.9.5",
     "nodemailer-mailgun-transport": "^2.1.5",
+    "nodemon": "^3.0.2",
     "request-promise-core": "^1.1.4",
+    "rimraf": "^5.0.5",
     "venom-bot": "^5.0.21"
   }
 }
