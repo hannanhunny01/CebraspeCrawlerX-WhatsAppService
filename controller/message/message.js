@@ -7,7 +7,6 @@ const sendMessage = async (req, res) => {
 
     try{
 
-        return res.json(req.body)
 
         for(const items of req.body.item){
            
@@ -31,9 +30,9 @@ const sendMessage = async (req, res) => {
                 }
             }
        //     console.log(title,textToSend,telegram)
-        //    await sendZapUpdates(title,textToSend,whatsapp)
+            await sendZapUpdates(title,textToSend,whatsapp)
             await sendTelegram(title ,textToSend,telegram)
-      //      await sendEmail(title,textToSend,email)
+            await sendEmail(title,textToSend,email)
 
 
 
@@ -47,6 +46,9 @@ const sendMessage = async (req, res) => {
 
 
         
-    }catch(error){console.log(error)}
+    }catch(error){
+        return res.json(404).json({message:"Cannot send message now"})
+        
+        console.log(error)}
 }
 module.exports = { sendMessage }

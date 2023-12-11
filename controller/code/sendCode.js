@@ -2,6 +2,7 @@
 
 const { sendCodeEmail } = require("./emailCode");
 
+const {sendMessageZap} = require('./whatsappCode');
 
 function generateRandomMixTwelve() {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -27,7 +28,8 @@ function generateRandomMixTwelve() {
 const sendCode = async(req,res) =>{
 
   try{
-   const code = generateRandomSixDigitNumber();
+
+    const code = generateRandomSixDigitNumber()
    if(req.body.contactMethod == 'email'){
     try{
     await  sendCodeEmail(req.body.contactValue,code)
@@ -38,6 +40,14 @@ const sendCode = async(req,res) =>{
 
   }
   else if(req.body.contactMethod == 'phone'){
+
+    try{
+
+        await sendMessageZap(req.body.contactValue,code)
+
+    }catch(error){
+       return res.status(500).json({message:"Cannot send message now"})
+    }
       
     return res.status(200).json({code:code})
 
