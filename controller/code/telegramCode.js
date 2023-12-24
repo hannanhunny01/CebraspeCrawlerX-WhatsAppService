@@ -1,7 +1,7 @@
 const TelegramBot = require('node-telegram-bot-api');
 const token = '6517517605:AAHMSAwLd5AIPK71AZ-ZLtrlwvpUXaplVLU';
 
-const TelegramSaver = require('../../Model/telegramModel')
+const TelegramSaver = require('../../models/telegramModel')
 const {generateRandomMixTwelve} = require('./sendCode')
 
 const makeCode =  async (chatId)=>{

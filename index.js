@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv').config();
-const {dbConnect} = require('./config/dbConnect')
+const {dbConnect ,dbConnectMain} = require('./config/dbConnect')
 const PORT = process.env.PORT || 4000;
 const messageRoute = require('./routes/messageRoute')
 
@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 dbConnect();
-
+//dbConnectMain();
 const codeRoute = require('./routes/codeRoute')
 app.use('/api/code',codeRoute)
 app.use('/api/message',messageRoute)

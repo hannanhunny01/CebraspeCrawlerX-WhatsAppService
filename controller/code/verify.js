@@ -1,6 +1,6 @@
 // Purpose: Verify the code sent to the user's telegram account
 
-const TelegramSaver = require('../../Model/telegramModel')
+const TelegramSaver = require('../../models/telegramModel')
 
 
 const verifyTelegramCode = async (req,res)=>{
