@@ -34,7 +34,7 @@ const vestUnbSchema = new mongoose.Schema({
       default:false,
   }
   ,
-  sendMessageEmail:{
+  sendMessageTelegram:{
     
       type: Boolean,
       default:false,
@@ -43,6 +43,15 @@ const vestUnbSchema = new mongoose.Schema({
 
     users: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
 
+  });
+
+  vestUnbSchema.pre('save', function(next) {
+    if (this.isNew) {
+      this.sendMessageEmail = this.items_on_site.length;
+      this.sendMessagePhone = this.items_on_site.length;
+      this.sendMessageTelegram = this.items_on_site.length;
+    }
+    next();
   });
 
   const VestUnb = mongoose.model('VestUnb', vestUnbSchema);

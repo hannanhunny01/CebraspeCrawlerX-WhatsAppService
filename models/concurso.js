@@ -42,7 +42,7 @@ const concursoSchema = new mongoose.Schema({
         default:false,
     }
     ,
-    sendMessageEmail:{
+    sendMessageTelegram:{
       
         type: Boolean,
         default:false,
@@ -51,6 +51,15 @@ const concursoSchema = new mongoose.Schema({
 
     users: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
 
+  });
+
+  concursoSchema.pre('save', function(next) {
+    if (this.isNew) {
+      this.sendMessageEmail = this.items_on_site.length;
+      this.sendMessagePhone = this.items_on_site.length;
+      this.sendMessageTelegram = this.items_on_site.length;
+    }
+    next();
   });
 
   const Concurso = mongoose.model('Concurso', concursoSchema);
