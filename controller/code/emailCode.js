@@ -1,5 +1,12 @@
 const nodemailer = require('nodemailer');
 
+
+const fs = require('fs');
+const path = require('path');
+
+const confirmationTempaletePath = path.join(__dirname, '../../template/emailConfirmation.html');
+let confirmationTempalete = fs.readFileSync(confirmationTempaletePath, 'utf-8');
+
 const sendCodeEmail = async (email, code) => {
     try {
         const transporter = nodemailer.createTransport({
@@ -10,21 +17,13 @@ const sendCodeEmail = async (email, code) => {
                 pass: process.env.MAILGUN_PASSWORD
             }
         });
+        confirmationTempalete = confirmationTempalete.replace('{{code}}', code);
 
         const mailOptions = {
             from: 'Suporte <suporte@cebraspecrawlerx.tech>',
             to: email,
             subject: 'Code to Register Email',
-            html: `
-                <p>Olá,</p>
-                <p>Você está recebendo este e-mail para confirmar sua identidade no CebraspeCrawler X.</p>
-                <p>Seu código de verificação é:</p>
-                <h2 style="color: #007bff;">${code}</h2>
-                <p>Este código é válido pelos próximos dez minutos.</p>
-                <p>Insira este código no site para concluir o processo de verificação.</p>
-                <p>Se você não solicitou esta verificação, pode ignorar este e-mail com segurança.</p>
-                <p>Atenciosamente,<br>Equipe CebraspeCrawler X</p>
-            `
+            html: confirmationTempalete,
         };
 
         await transporter.sendMail(mailOptions);
