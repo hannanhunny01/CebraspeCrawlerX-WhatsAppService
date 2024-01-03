@@ -57,7 +57,7 @@ const initializeSession = () => {
     venom
       .create({
         session: 'session-name',
-        headless: false,
+        headless: true,
         autoClose: 60000,
       }, (base64Qr, asciiQR, attempts, urlCode) => {
         handleQRCode(base64Qr);

@@ -13,10 +13,12 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.20.2",
+    "consolidate": "^1.0.3",
     "cypress": "^13.6.0",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "express-router": "^0.0.1",
+    "har-validator": "^5.1.5",
     "install": "^0.13.0",
     "mongodb": "^6.1.0",
     "mongoose": "^7.5.3",
@@ -24,8 +26,10 @@
     "nodemailer": "^6.9.5",
     "nodemailer-mailgun-transport": "^2.1.5",
     "nodemon": "^3.0.2",
+    "request": "^2.88.2",
     "request-promise-core": "^1.1.4",
     "rimraf": "^5.0.5",
+    "uuid": "^9.0.1",
     "venom-bot": "^5.0.21"
   }
 }
