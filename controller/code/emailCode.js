@@ -22,7 +22,7 @@ const sendCodeEmail = async (email, code) => {
         const mailOptions = {
             from: 'Suporte <suporte@cebraspecrawlerx.tech>',
             to: email,
-            subject: 'Code to Register Email',
+            subject: 'Confirmaçao para Validação de Email',
             html: confirmationTempalete,
         };
 

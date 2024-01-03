@@ -3,8 +3,7 @@
 const {sendCheckMsg} = require('./checkZap')
 const {closeSession} = require('../zapSession/session')
 const telegram = require('node-telegram-bot-api');
-
-
+const bot = require('../code/telegramCode')
   
     const token = process.env.TELEGRAM_TOKEN_APISTATUS;
     const statusBot  =  new telegram(token, {polling: true});
@@ -38,6 +37,7 @@ const telegram = require('node-telegram-bot-api');
     statusBot.onText(/\/checkTelegram/,(msg)=>{
         if(msg.chat.id ==  process.env.TELEGRAM_CHAT_ID_APISTATUS){
             statusBot.sendMessage(msg.chat.id, 'Telegram is Working')
+            bot.sendMessage(msg.chat.id, 'Telegram is Working')
         }
     })
 
