@@ -58,7 +58,17 @@ const concursoSchema = new mongoose.Schema({
       this.sendMessageEmail = this.items_on_site.length;
       this.sendMessagePhone = this.items_on_site.length;
       this.sendMessageTelegram = this.items_on_site.length;
+      this.items_on_site_number = this.items_on_site.length;
+
     }
+    if(this.users.length == 0){
+        this.sendMessageEmail = this.items_on_site.length;
+        this.sendMessagePhone = this.items_on_site.length;
+        this.sendMessageTelegram = this.items_on_site.length;
+        this.items_on_site_number = this.items_on_site.length;
+
+  
+      }
     next();
   });
 

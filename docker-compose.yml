@@ -7,3 +7,9 @@ services:
       - "4000:4000"
     env_file:
       - ./.env 
+    networks:
+      - mybridge
+
+networks:
+  mybridge:
+    external: true

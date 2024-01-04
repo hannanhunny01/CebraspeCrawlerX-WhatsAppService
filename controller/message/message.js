@@ -86,16 +86,16 @@
                 }
 
                 let model;
-
+                let type = items.itemType;
                 switch (type) {
                     case "vestibular":
-                        model = await VestUnb.findById(id);
+                        model = await VestUnb.findById(items.itemId);
                         break;
                     case "pas":
-                        model = await PasUnb.findById(id);
+                        model = await PasUnb.findById(items.itemId);
                         break;
                     case "concurso":
-                        model = await Concurso.findById(id);
+                        model = await Concurso.findById(items.itemId);
                         break;
                     default:
                         throw new Error("Invalid type");
@@ -135,8 +135,9 @@
 
             
         }catch(error){
-            return res.json(404).json({message:"Cannot send message now"})
-            
             console.log(error)}
+
+            return res.status(404).json({message:"Cannot send message now"})
+            
     }
     module.exports = { sendMessage }

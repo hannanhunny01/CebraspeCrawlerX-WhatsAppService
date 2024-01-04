@@ -20,7 +20,7 @@ const sendMessageZap = async (zapNumber,code)  => {
     .sendText(`55${zapNumber}@c.us`, "Ola , \nSeu codigo de Verficao e : \n" + "*"+  code  +"*"+ "\nValido por 10 minutos")
     .then((result) => {
   //    console.log('Result: ', result);
-      return res.status(200).json({message:"Message Sent Successfully"});
+      return true;
     })
     .catch((error) => {
       console.error('Error when sending message:', error);
