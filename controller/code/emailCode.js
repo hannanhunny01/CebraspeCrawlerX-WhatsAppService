@@ -4,8 +4,7 @@ const nodemailer = require('nodemailer');
 const fs = require('fs');
 const path = require('path');
 
-const confirmationTempaletePath = path.join(__dirname, '../../template/emailConfirmation.html');
-let confirmationTempalete = fs.readFileSync(confirmationTempaletePath, 'utf-8');
+
 
 const sendCodeEmail = async (email, code) => {
     try {
@@ -17,6 +16,8 @@ const sendCodeEmail = async (email, code) => {
                 pass: process.env.MAILGUN_PASSWORD
             }
         });
+        const confirmationTempaletePath = path.join(__dirname, '../../template/emailConfirmation.html');
+        let confirmationTempalete = fs.readFileSync(confirmationTempaletePath, 'utf-8');    
         confirmationTempalete = confirmationTempalete.replace('{{code}}', code);
 
         const mailOptions = {
