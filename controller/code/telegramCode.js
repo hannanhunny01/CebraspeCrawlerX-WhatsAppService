@@ -1,5 +1,4 @@
 const TelegramBot = require('node-telegram-bot-api');
-const token = '6517517605:AAHMSAwLd5AIPK71AZ-ZLtrlwvpUXaplVLU';
 
 const TelegramSaver = require('../../models/telegramModel')
 const {generateRandomMixTwelve} = require('./sendCode')
@@ -23,7 +22,7 @@ const makeCode =  async (chatId)=>{
 }
 
 
-const bot = new TelegramBot(token, {polling: true});
+const bot = new TelegramBot(process.env.TELEGRAM_TOKEN, {polling: true});
 
 bot.onText(/\/start/,(msg)=>{
   bot.sendMessage(parseInt(msg.chat.id,10), "Bem Vindo manda /novoToken para Receber Novo codigo de Cadastro")
