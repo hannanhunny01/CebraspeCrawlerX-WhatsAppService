@@ -24,20 +24,20 @@ const vestUnbSchema = new mongoose.Schema({
     },
     sendMessageEmail:{
       
-      type: Boolean,
-      default:false,
+      type: Number,
+      default:0,
   }
   ,
   sendMessagePhone:{
     
-      type: Boolean,
-      default:false,
+      type: Number,
+      default:0,
   }
   ,
   sendMessageTelegram:{
     
-      type: Boolean,
-      default:false,
+      type: Number,
+      default:0,
   }
   ,
 

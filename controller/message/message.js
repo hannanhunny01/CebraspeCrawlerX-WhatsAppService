@@ -62,9 +62,7 @@
 
         try{
 
-
             for(const items of req.body.item){
-                console.log(items)
                 const title = items.nameOfObject
                 let textToSend = ""
                 for (const update of items.updates){
@@ -88,34 +86,34 @@
                 let model;
                 let type = items.itemType;
                 switch (type) {
-                    case "vestibular":
+                    case "vestibular":  
                         model = await VestUnb.findById(items.itemId);
                         break;
                     case "pas":
                         model = await PasUnb.findById(items.itemId);
                         break;
-                    case "concurso":
+                    case "concurso":             
                         model = await Concurso.findById(items.itemId);
                         break;
                     default:
                         throw new Error("Invalid type");
                 }
-
+                console.log("mode",model)
                 if(model.sendMessageEmail<model.items_on_site.length){
-
-                 
+               
                     await sendEmail(title,textToSend,email).then(async ()=>{
                         await updateHasSent(items.itemId,items.itemType,"email")
                     })
     
                 }
                 if(model.sendMessagePhone<model.items_on_site.length){
+                 
                     await sendZapUpdates(title,textToSend,whatsapp).then(async ()=>{
                         await updateHasSent(items.itemId,items.itemType,"whatsapp")
                     })
                 }
                 if(model.sendMessageTelegram<model.items_on_site.length){
-
+              
                     await sendTelegram(title ,textToSend,telegram).then(async ()=>{
                         await updateHasSent(items.itemId,items.itemType,"telegram")
                     })
